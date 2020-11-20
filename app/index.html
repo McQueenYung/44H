@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset='utf-8' />
+   <!-- <meta charset='big5'> -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <meta name="mobile-web-app-capable" content="yes" />
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black" /> -->
+
+    <title>44H</title>
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+    <link rel="apple-touch-icon" sizes="57x57" href="images/44H.jpg">
+    <link rel="stylesheet" href="styles/app.css">
+
+    <!-- <script src="scripts/jquery-1.11.3.js"></script>
+         <script src="scripts/jquery.mobile-1.4.5.js"></script>  -->
+    <script src="scripts/app.js"></script>
+
+   </head>
+
+  <body onload="start()">
+    <span style="font-size: 24pt;color:WHITE" >44H</span>
+    <a style="font-size:8pt;" href="https://bo.io.gov.mo/bo/i/2020/38/lei19_cn.asp" target="_blank">
+      修改第8/2012號法律《保安部隊及保安部門的附帶報酬》</a> <br>
+      <div style="font-size: 12pt;color:WHITE"> 今天 : <span id="day"></span> ( <span id="weekdayCH"></span> )</div>
+
+    <!--<div id="div_ha" class="div_ha"> -->
+    <hr>
+    <span style="font-size: 12pt;color:WHITE"> 年份 / 月份 :
+    <select type="number" id="getCYear" onchange="req_info();reSet();search_Day();myFunction()" class="GM">
+                  <option value=2020>2020</option>
+                  <option value=2021>2021</option>
+                </select>
+    </span>
+
+    <span><select type="number" id="getCMonth" onchange="req_info();reSet();search_Day();myFunction()" class="GM">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+        <option value=9>9</option>
+        <option value=10>10</option>
+        <option value=11>11</option>
+        <option value=12>12</option>
+    </select>
+  </span>
+
+
+    <br>
+    <span style="font-size: 12pt;color:WHITE">
+    該月工作日日數(日) :  <span style="font-size: 14pt;color:WHITE" id="demo5" class="demo5g1"></span><br>
+    該月所需工作總時數(小時/分鐘) : <span style="font-size: 14pt;color:WHITE" id="demo81" class="demo5g1"></span>
+                                  <span style="font-size: 14pt;color:WHITE" id="demo80" class="demo5g"></span><br>
+    <hr>
+<span>辦公室工作 : <span id="dr"></span> 天<br>
+補(小時/分鐘) : </span><span id="RHour"></span>
+<a style="font-size:8pt;" href="http://mq-web.net/app/44H/app/ref/ref_sup_vs.html" target="_blank">
+  工作時間對照</a><br>
+<span>需要總數(分鐘) : </span><span style="color:YELLOW" id="OHtotal"></span> 分鐘<br>
+<div>
+    <span class="item">該月完成補充時數(總分鐘) : </span><span id="Sum_A"> </span>
+    ( <span id="Lmin"></span> )
+      <button onclick="showhide()">顯示/隱藏</button>
+      <br>
+      <div id="input_r">
+        <hr>
+    01. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A1" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A1R" class="IFA"><br>
+    02. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A2" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A2R" class="IFA"><br>
+    03. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A3" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A3R" class="IFA"><br>
+    04. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A4" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A4R" class="IFA"><br>
+    05. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A5" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A5R" class="IFA"><br>
+    06. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A6" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A6R" class="IFA"><br>
+    07. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A7" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A7R" class="IFA"><br>
+    08. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A8" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A8R" class="IFA"><br>
+    09. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A9" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text"  placeholder="備註" id = "A9R" class="IFA"><br>
+    10. <input type="number" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" id = "A10" min=0 class="IFA" defaultValue=0><input style="width: 60%;" type="text" placeholder="備註" id = "A10R" class="IFA">
+  </div>
+</div>
+
+<hr>
+    <select onchange="ONChg()" id="CON" class="GM">
+            <option value=435>1.辦公室 7小時15分/435分鐘</option>
+            <option value=528>2.辦公室 8小時48分/528分鐘)</option>
+            <option value=505>3.三更輪值 8小時25分/505分鐘</option>
+            <option value=565>4.二更輪值 9小時25分/565分鐘</option>
+            <option value=1> 自訂 (請輸入分鐘數)</option>
+            </select>
+            <button onclick="setMemory()">儲存</button>
+            <button onclick="reSet();myFunction();">重設</button>
+
+<!--   <span>其他: <input type="number" id="OTH" class="item" value=0></span>
+       <input type="number" id="CON" class="GM" value=0> -->
+<!-- <div style="display:none"> -->
+
+
+
+
+  <!--  <input onclick="S3_1()" type="radio" name="HA">三更制A
+    <input onclick="S3_2()" type="radio" name="HA">三更制B
+    <input onclick="S3_3()" type="radio" name="HA">三更制C
+    <input onclick="S3_4()" type="radio" name="HA">三更制D
+    <input onclick="S3_5()" type="radio" name="HA">三更制E<br>
+
+    <input onclick="S2_1()" type="radio" name="HA" checked>二更制A
+    <input onclick="S2_2()" type="radio" name="HA">二更制B
+    <input onclick="S2_3()" type="radio" name="HA">二更制C<br>
+-->
+  <!-- </div> -->
+
+<div>
+      <span><button style="display:none" onclick="OH()" type="radio" name="HA">全選</button></span><br>
+
+    <span id="1"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(1)" type="number" min=0 id="IF1" class="IFA" defaultValue=0>
+    <span id="2"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(2)" type="number" min=0 id="IF2" class="IFA" defaultValue=0>
+    <span id="3"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(3)" type="number" min=0 id="IF3" class="IFA" defaultValue=0>
+    <span id="4"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(4)" type="number" min=0 id="IF4" class="IFA" defaultValue=0>
+
+<br>
+    <span id="5"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(5)" type="number" min=0 id="IF5" class="IFA" defaultValue=0>
+    <span id="6"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(6)" type="number" min=0 id="IF6" class="IFA" defaultValue=0>
+    <span id="7"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(7)" type="number" min=0 id="IF7" class="IFA" defaultValue=0>
+    <span id="8"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(8)" type="number" min=0 id="IF8" class="IFA" defaultValue=0>
+<br>
+    <span id="9"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(9)" type="number" min=0 id="IF9" class="IFA" defaultValue=0>
+    <span id="10"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(10)" type="number" min=0 id="IF10" class="IFA" defaultValue=0>
+    <span id="11"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(11)" type="number" min=0 id="IF11" class="IFA" defaultValue=0>
+    <span id="12"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(12)" type="number" min=0 id="IF12" class="IFA" defaultValue=0>
+<br>
+    <span id="13"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(13)" type="number" min=0 id="IF13" class="IFA" defaultValue=0>
+    <span id="14"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(14)" type="number" min=0 id="IF14" class="IFA" defaultValue=0>
+    <span id="15"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(15)" type="number" min=0 id="IF15" class="IFA" defaultValue=0>
+    <span id="16"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(16)" type="number" min=0 id="IF16" class="IFA" defaultValue=0>
+<br>
+    <span id="17"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(17)" type="number" min=0 id="IF17" class="IFA" defaultValue=0>
+    <span id="18"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(18)" type="number" min=0 id="IF18" class="IFA" defaultValue=0>
+    <span id="19"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(19)" type="number" min=0 id="IF19" class="IFA" defaultValue=0>
+    <span id="20"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(20)" type="number" min=0 id="IF20" class="IFA" defaultValue=0>
+<br>
+    <span id="21"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(21)" type="number" min=0 id="IF21" class="IFA" defaultValue=0>
+    <span id="22"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(22)" type="number" min=0 id="IF22" class="IFA" defaultValue=0>
+    <span id="23"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(23)" type="number" min=0 id="IF23" class="IFA" defaultValue=0>
+    <span id="24"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(24)" type="number" min=0 id="IF24" class="IFA" defaultValue=0>
+<br>
+    <span id="25"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(25)" type="number" min=0 id="IF25" class="IFA" defaultValue=0>
+    <span id="26"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(26)" type="number" min=0 id="IF26" class="IFA" defaultValue=0>
+    <span id="27"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(27)" type="number" min=0 id="IF27" class="IFA" defaultValue=0>
+    <span id="28"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(28)" type="number" min=0 id="IF28" class="IFA" defaultValue=0>
+<br>
+    <span id="29"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(29)" type="number" min=0 id="IF29" class="IFA" defaultValue=0>
+    <span id="30"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(30)" type="number" min=0 id="IF30" class="IFA" defaultValue=0>
+    <span id="31"></span><input oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" onchange="myFunction()" ondblclick="change_zero(31)" type="number" min=0 id="IF31" class="IFA" defaultValue=0>
+<br>
+</div>
+<br>
+<span style="font-size: 12pt;color:WHITE"> 註： </span>
+<span style="font-size: 12pt;color:RED"> 假日 </span>
+<span style="font-size: 12pt;color:LightPink"> 豁免上班 </span>
+<span style="font-size: 12pt;color:LIMEGREEN"> 補假日 </span>
+
+    <br><br>
+    該月工作個數(個) :  <span id="demo98" class="demo5w1"></span><br>
+    工作總時數(小時/分鐘) :<span id="demo67" class="demo5w1"></span>
+    <span  style="color:YELLOW" id="demo07" class="demo5w"></span>
+
+    <br>
+
+<div style="display:none" id="div_result" class="div_result">
+  <hr>
+    <span style="color:BLACK;font-size: 14pt" >尚需工作個數約(<span id="min"></span>分鐘/每個) :</span>
+    <!-- <span style="font-size: 14pt" >尚需工作個數(個) :</span> -->
+    <span id="demo10" class="demo5_red"></span><br>
+    <!--  <span id="demo13" style="font-size: 14pt; color:RED;position:absolute;right:18%;" ></span><br> -->
+    <span style="color:BLACK;font-size: 14pt" >尚需工作時數(小時/分鐘) :</span>
+    <span id="RHours" class="demo5_red"></span>
+    <span id="RMins" class="demo5r_red"></span>
+</div>
+
+<br>
+    <button onclick="myFunction()" class="myFunction" >計算</button>
+
+
+  </body>
+</html>
